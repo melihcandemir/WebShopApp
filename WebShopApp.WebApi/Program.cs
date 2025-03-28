@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using WebShopApp.Context;
+using WebShopApp.Data.Context;
+using WebShopApp.Data.Repositories;
+using WebShopApp.Data.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<WebShopAppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("Default")
 ));
+
+// Service Lifetimes
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); // Generic olduğu için typof kullanıldı
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
 var app = builder.Build();
 
