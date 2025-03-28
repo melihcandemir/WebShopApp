@@ -1,0 +1,31 @@
+using Microsoft.EntityFrameworkCore;
+using WebShopApp.Data.Entities;
+
+namespace WebShopApp.Context
+{
+    public class WebShopAppDbContext : DbContext
+    {
+        public WebShopAppDbContext(DbContextOptions<WebShopAppDbContext> options) : base(options)
+        {
+
+        }
+
+
+        // yaptığımı kuralları db ye çağırıyoruz. Fluent Api
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new ProdurctConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderProductConfiguration());
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+
+        public DbSet<UserEntity> Users => Set<UserEntity>();
+        public DbSet<OrderEntity> Orders => Set<OrderEntity>();
+        public DbSet<ProductEntity> Products => Set<ProductEntity>();
+        public DbSet<OrderProductEntity> OrderProducts => Set<OrderProductEntity>();
+    }
+}
