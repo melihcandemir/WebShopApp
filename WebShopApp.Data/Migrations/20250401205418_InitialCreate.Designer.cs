@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebShopApp.Context;
+using WebShopApp.Data.Context;
 
 #nullable disable
 
 namespace WebShopApp.Data.Migrations
 {
     [DbContext(typeof(WebShopAppDbContext))]
-    [Migration("20250328005244_InitialCreate")]
+    [Migration("20250401205418_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

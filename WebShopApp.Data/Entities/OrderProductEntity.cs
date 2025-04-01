@@ -25,7 +25,7 @@ namespace WebShopApp.Data.Entities
             builder.Ignore(x => x.Id);
             // Keyler atandı
             builder.HasKey("OrderId", "ProductId");
-            
+
             base.Configure(builder);
         }
     }
