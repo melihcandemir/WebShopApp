@@ -1,3 +1,4 @@
+using WebShopApp.Business.DataProtection;
 using WebShopApp.Business.Operations.User.Dtos;
 using WebShopApp.Business.Types;
 using WebShopApp.Data.Entities;
@@ -12,11 +13,13 @@ namespace WebShopApp.Business.Operations.User
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRepository<UserEntity> _userRepository;
+        private readonly IDataProtection _dataProtector;
 
-        public UserManager(IUnitOfWork unitOfWork, IRepository<UserEntity> userRepository)
+        public UserManager(IUnitOfWork unitOfWork, IRepository<UserEntity> userRepository, IDataProtection protector)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
+            _dataProtector = protector;
         }
 
 
@@ -39,7 +42,7 @@ namespace WebShopApp.Business.Operations.User
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Password = user.Password, // şifreleme yapılacak.
+                Password = _dataProtector.Protect(user.Password), // şifreleme yapılacak.
                 PhoneNumber = user.PhoneNumber,
                 UserType = UserType.Customer // Varsayılan olarak Customer atanıyor
 

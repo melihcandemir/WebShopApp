@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
+using WebShopApp.Business.DataProtection;
 using WebShopApp.Business.Operations.User;
 using WebShopApp.Data.Context;
 using WebShopApp.Data.Repositories;
@@ -22,7 +24,9 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserManager>();
 
 
-
+builder.Services.AddScoped<IDataProtection, DataProtection>();
+var keysDirectory = new DirectoryInfo(Path.Combine(builder.Environment.ContentRootPath, "App_Data", "Keys"));
+builder.Services.AddDataProtection().SetApplicationName("WebShopApp").PersistKeysToFileSystem(keysDirectory); // sadece 1 bilgisayarda çalışır. birden fazla bilgisayarda çalışması için AddDataProtection().PersistKeysToSqlServer() kullanılmalıdır.
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -19,4 +19,14 @@
     <ProjectReference Include="..\WebShopApp.Business\WebShopApp.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+<None Remove="App_Data\Keys\key-1c4ec819-4e8a-41e4-86c1-8fca9e3bdaff.xml" />
+</ItemGroup>
+
+  <ItemGroup>
+    <Content Include="App_Data\Keys\key-1c4ec819-4e8a-41e4-86c1-8fca9e3bdaff.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
