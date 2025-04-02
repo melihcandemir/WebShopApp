@@ -69,5 +69,45 @@ namespace WebShopApp.Business.Operations.User
                 IsSucceed = true
             };
         }
+
+        public ServisMessage<UserInfoDto> LoginUser(LoginUserDto user)
+        {
+            var userEntity = _userRepository.Get(x => x.Email.ToLower() == user.Email.ToLower());
+
+            if (userEntity == null)
+            {
+                return new ServisMessage<UserInfoDto>
+                {
+                    Message = "Kullanıcı bulunamadı.",
+                    IsSucceed = false
+                };
+            }
+
+            var unprotectedPassword = _dataProtector.Unprotect(userEntity.Password);
+
+            if (unprotectedPassword == user.Password)
+            {
+                return new ServisMessage<UserInfoDto>
+                {
+                    IsSucceed = true,
+                    Data = new UserInfoDto
+                    {
+                        Email = userEntity.Email,
+                        FirstName = userEntity.FirstName,
+                        LastName = userEntity.LastName,
+                        UserType = userEntity.UserType,
+                        PhoneNumber = userEntity.PhoneNumber
+                    }
+                };
+            }
+            else
+            {
+                return new ServisMessage<UserInfoDto>
+                {
+                    Message = "Kullanıcı adı veya şifre hatalı.",
+                    IsSucceed = false
+                };
+            }
+        }
     }
 }

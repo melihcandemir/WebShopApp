@@ -7,5 +7,7 @@ namespace WebShopApp.Business.Operations.User
     public interface IUserService
     {
         Task<ServisMessage> AddUser(AddUserDto user); // asyn çünkü unit of work kullanılacak.
+
+        ServisMessage<UserInfoDto> LoginUser(LoginUserDto user);
     }
 }
