@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WebShopApp.Business.Operations.User;
 using WebShopApp.Data.Context;
 using WebShopApp.Data.Repositories;
 using WebShopApp.Data.UnitOfWork;
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<WebShopAppDbContext>(options => options.UseSqlServ
 // Service Lifetimes
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); // Generic olduğu için typof kullanıldı
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUserService, UserManager>();
+
 
 
 var app = builder.Build();
