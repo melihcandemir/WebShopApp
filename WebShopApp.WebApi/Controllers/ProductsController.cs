@@ -1,6 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebShopApp.Business.Operations.User;
-using WebShopApp.Business.Operations.User.Dtos;
+using WebShopApp.Business.Operations.Product;
+using WebShopApp.Business.Operations.Product.Dtos;
 using WebShopApp.WebApi.Models;
 
 namespace WebShopApp.WebApi.Controllers
@@ -17,6 +18,7 @@ namespace WebShopApp.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddProduct(AddProductRequest data)
         {
             var addProductDto = new AddProductDto

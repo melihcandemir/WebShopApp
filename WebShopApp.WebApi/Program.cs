@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebShopApp.Business.DataProtection;
+using WebShopApp.Business.Operations.Order;
+using WebShopApp.Business.Operations.Product;
 using WebShopApp.Business.Operations.User;
 using WebShopApp.Data.Context;
 using WebShopApp.Data.Repositories;
@@ -49,6 +51,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); // Gene
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped<IProductService, ProductManager>();
+builder.Services.AddScoped<IOrderService, OrderManager>();
 
 
 builder.Services.AddScoped<IDataProtection, DataProtection>();

@@ -1,4 +1,4 @@
-namespace WebShopApp.Business.Operations.User.Dtos
+namespace WebShopApp.Business.Operations.Product.Dtos
 {
     public class AddProductDto
     {

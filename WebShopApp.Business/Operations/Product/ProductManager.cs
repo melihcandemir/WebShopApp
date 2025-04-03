@@ -1,10 +1,10 @@
-using WebShopApp.Business.Operations.User.Dtos;
+using WebShopApp.Business.Operations.Product.Dtos;
 using WebShopApp.Business.Types;
 using WebShopApp.Data.Entities;
 using WebShopApp.Data.Repositories;
 using WebShopApp.Data.UnitOfWork;
 
-namespace WebShopApp.Business.Operations.User
+namespace WebShopApp.Business.Operations.Product
 {
 
     public class ProductManager : IProductService
