@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using WebShopApp.Business.Operations.Order;
 using WebShopApp.Business.Operations.Order.Dtos;
 using WebShopApp.Business.Types;
@@ -89,6 +90,44 @@ namespace WebShopApp.Business.Operations.Order
                 IsSucceed = true,
                 Message = "Sipariş ürünleri eklendi"
             };
+        }
+
+        public async Task<List<OrderDto>> GetAllOrders()
+        {
+            var orders = await _orderRepository.GetAll().Select(x => new OrderDto
+            {
+                Id = x.Id,
+                CustomerName = x.User.FirstName + " " + x.User.LastName,
+                CreatedDate = x.CreatedDate,
+                OrderDate = x.ModifiedDate,
+                TotalAmount = x.TotalAmount,
+                Products = x.OrderProducts.Select(p => new OrderProductDto
+                {
+                    Id = p.Id,
+                    Title = p.Product.ProductName
+                }).ToList()
+            }).ToListAsync();
+
+            return orders;
+        }
+
+        public async Task<OrderDto> GetOrder(int id)
+        {
+            var order = await _orderRepository.GetAll(x => x.Id == id).Select(x => new OrderDto
+            {
+                Id = x.Id,
+                CustomerName = x.User.FirstName + " " + x.User.LastName,
+                CreatedDate = x.CreatedDate,
+                OrderDate = x.ModifiedDate,
+                TotalAmount = x.TotalAmount,
+                Products = x.OrderProducts.Select(p => new OrderProductDto
+                {
+                    Id = p.Id,
+                    Title = p.Product.ProductName
+                }).ToList()
+            }).FirstOrDefaultAsync();
+
+            return order;
         }
     }
 }

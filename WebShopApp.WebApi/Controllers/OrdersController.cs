@@ -39,5 +39,28 @@ namespace WebShopApp.WebApi.Controllers
                 return Ok(result.Message);
             }
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOrder(int id)
+        {
+            var order = await _orderService.GetOrder(id);
+
+            if (order is null)
+            {
+                return NotFound("Böyle bir sipariş bulunamadı");
+            }
+            else
+            {
+                return Ok(order);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOrders()
+        {
+            var orders = await _orderService.GetAllOrders();
+
+            return Ok(orders);
+        }
     }
 }

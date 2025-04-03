@@ -7,5 +7,7 @@ namespace WebShopApp.Business.Operations.Order
     public interface IOrderService
     {
         Task<ServisMessage> AddOrder(AddOrderDto order);
+        Task<OrderDto> GetOrder(int id);
+        Task<List<OrderDto>> GetAllOrders();
     }
 }
