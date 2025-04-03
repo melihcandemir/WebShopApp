@@ -62,5 +62,18 @@ namespace WebShopApp.WebApi.Controllers
 
             return Ok(orders);
         }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteOrder(int id)
+        {
+            var result = await _orderService.DeleteOrder(id);
+
+            if (!result.IsSucceed)
+                return NotFound(result.Message);
+            else
+                return Ok(result.Message);
+        }
+
     }
 }

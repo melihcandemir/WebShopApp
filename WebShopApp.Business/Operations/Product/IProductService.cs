@@ -7,5 +7,7 @@ namespace WebShopApp.Business.Operations.Product
     public interface IProductService
     {
         Task<ServisMessage> AddProduct(AddProductDto product);
+        Task<ServisMessage> PriceUpdate(int id, decimal changeBy);
+        Task<ServisMessage> DeleteProdut(int id);
     }
 }

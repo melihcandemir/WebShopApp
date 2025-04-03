@@ -92,6 +92,39 @@ namespace WebShopApp.Business.Operations.Order
             };
         }
 
+        public async Task<ServisMessage> DeleteOrder(int id)
+        {
+            var order = _orderRepository.GetById(id);
+
+            if (order is null)
+            {
+                return new ServisMessage
+                {
+                    IsSucceed = false,
+                    Message = "Silinmek istenen ürün bulunamadı."
+                };
+            }
+
+            _orderRepository.Delete(id);
+
+
+            try
+            {
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Ürün silerken bir hata oluştu.");
+            }
+
+            return new ServisMessage
+            {
+                IsSucceed = true,
+                Message = "Ürün silindi."
+            };
+        }
+
         public async Task<List<OrderDto>> GetAllOrders()
         {
             var orders = await _orderRepository.GetAll().Select(x => new OrderDto

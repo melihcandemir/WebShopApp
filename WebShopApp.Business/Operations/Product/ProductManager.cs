@@ -56,5 +56,72 @@ namespace WebShopApp.Business.Operations.Product
                 Message = "Ürün eklendi"
             };
         }
+
+        public async Task<ServisMessage> DeleteProdut(int id)
+        {
+            var product = _repository.GetById(id);
+
+            if (product is null)
+            {
+                return new ServisMessage
+                {
+                    IsSucceed = false,
+                    Message = "Silinmek istenen ürün bulunamadı."
+                };
+            }
+
+            _repository.Delete(id);
+
+
+            try
+            {
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Ürün silerken bir hata oluştu.");
+            }
+
+            return new ServisMessage
+            {
+                IsSucceed = true,
+                Message = "Ürün silindi."
+            };
+        }
+
+        public async Task<ServisMessage> PriceUpdate(int id, decimal changeBy)
+        {
+            var product = _repository.GetById(id);
+
+            if (product is null)
+            {
+                return new ServisMessage
+                {
+                    IsSucceed = false,
+                    Message = "Bu id ye ait ürün bulunamadı."
+                };
+            }
+
+            product.Price = changeBy;
+
+            _repository.Update(product);
+
+            try
+            {
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Ürün fiyatı güncellenirken bir hata oluştu.");
+            }
+
+            return new ServisMessage
+            {
+                IsSucceed = true,
+                Message = "Ürün güncellendi."
+            };
+        }
     }
 }

@@ -40,5 +40,29 @@ namespace WebShopApp.WebApi.Controllers
             }
 
         }
+
+
+        [HttpPatch("{id}/price")]
+        public async Task<IActionResult> PriceUpdate(int id, decimal changeBy)
+        {
+            var result = await _productService.PriceUpdate(id, changeBy);
+
+            if (!result.IsSucceed)
+                return NotFound(result.Message);
+            else
+                return Ok(result.Message);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteProdut(int id)
+        {
+            var result = await _productService.DeleteProdut(id);
+
+            if (!result.IsSucceed)
+                return NotFound(result.Message);
+            else
+                return Ok(result.Message);
+        }
     }
 }
