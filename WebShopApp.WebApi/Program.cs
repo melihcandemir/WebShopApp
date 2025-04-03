@@ -48,6 +48,7 @@ builder.Services.AddDbContext<WebShopAppDbContext>(options => options.UseSqlServ
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); // Generic olduğu için typof kullanıldı
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserManager>();
+builder.Services.AddScoped<IProductService, ProductManager>();
 
 
 builder.Services.AddScoped<IDataProtection, DataProtection>();
