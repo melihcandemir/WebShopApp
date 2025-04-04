@@ -200,6 +200,7 @@ namespace WebShopApp.Business.Operations.Order
                 _orderProductRepository.Delete(orderProduct, false);
             }
 
+            decimal totalAmount = 0;
             foreach (var productId in order.ProductIds)
             {
                 var orderProduct = new OrderProductEntity
@@ -209,8 +210,19 @@ namespace WebShopApp.Business.Operations.Order
                     Quentity = order.Quentity
                 };
 
+                var hasProduct = _productRepository.GetById(productId);
+                if (hasProduct == null)
+                {
+                    await _unitOfWork.RollBackTransaction();
+                    throw new Exception($"Bu Id: {productId} de ürün bulunamadı.");
+                }
+                totalAmount += hasProduct.Price;
+
                 _orderProductRepository.Add(orderProduct);
             }
+
+            orderEntity.TotalAmount = totalAmount;
+            _orderRepository.Update(orderEntity);
 
             try
             {
