@@ -7,7 +7,6 @@ using WebShopApp.WebApi.Models;
 
 namespace WebShopApp.WebApi.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
@@ -24,10 +23,12 @@ namespace WebShopApp.WebApi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
-            } // TODO: ilerde action filter olarak kodlanacak.
+                var errors = string.Join(", ", ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage));
+                throw new Exception(errors);
+            }
 
-            // business katmanına veriler aktarılacak
             var addUserDto = new AddUserDto
             {
                 Email = data.Email,
@@ -39,14 +40,12 @@ namespace WebShopApp.WebApi.Controllers
 
             var result = await _userService.AddUser(addUserDto);
 
-            if (result.IsSucceed)
+            if (!result.IsSucceed)
             {
-                return Ok(result.Message);
+                throw new Exception(result.Message);
             }
-            else
-            {
-                return BadRequest(result.Message);
-            }
+
+            return Ok(result.Message);
         }
 
         // login
@@ -55,7 +54,10 @@ namespace WebShopApp.WebApi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                var errors = string.Join(", ", ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage));
+                throw new Exception(errors);
             }
 
             var result = _userService.LoginUser(new LoginUserDto
@@ -66,13 +68,11 @@ namespace WebShopApp.WebApi.Controllers
 
             if (!result.IsSucceed)
             {
-                return BadRequest(result.Message);
+                throw new Exception(result.Message);
             }
 
-            // bilgiler doğru ise --> jwt
-
             var user = result.Data;
-            var configuration = HttpContext.RequestServices.GetRequiredService<IConfiguration>(); // tüm bilgileri tutan yapı
+            var configuration = HttpContext.RequestServices.GetRequiredService<IConfiguration>();
 
             var token = JwtHelper.GenerateJwtToken(new JwtDto
             {

@@ -8,5 +8,10 @@ namespace WebShopApp.WebApi.Middlewares
         {
             return app.UseMiddleware<MaintenanceMiddleware>();
         }
+
+        public static IApplicationBuilder UseGlobalExceptionHandler(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<ExceptionMiddleware>();
+        }
     }
 }
