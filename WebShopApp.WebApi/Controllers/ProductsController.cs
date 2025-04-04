@@ -41,6 +41,29 @@ namespace WebShopApp.WebApi.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetProducts()
+        {
+            var products = await _productService.GetAllProducts();
+
+            return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProduct(int id)
+        {
+            var product = await _productService.GetProduct(id);
+
+            if (product is null)
+            {
+                return NotFound("Böyle bir ürün bulunamadı");
+            }
+            else
+            {
+                return Ok(product);
+            }
+        }
+
 
         [HttpPatch("{id}/price")]
         public async Task<IActionResult> PriceUpdate(int id, decimal changeBy)

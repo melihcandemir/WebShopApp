@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using WebShopApp.Business.Operations.Product.Dtos;
 using WebShopApp.Business.Types;
 using WebShopApp.Data.Entities;
@@ -88,6 +89,36 @@ namespace WebShopApp.Business.Operations.Product
                 IsSucceed = true,
                 Message = "Ürün silindi."
             };
+        }
+
+        public Task<List<ProductDto>> GetAllProducts()
+        {
+            var products = _repository.GetAll().Select(x => new ProductDto
+            {
+                Id = x.Id,
+                CreatedDate = x.CreatedDate,
+                ModifiedDate = x.ModifiedDate,
+                ProductName = x.ProductName,
+                Price = x.Price,
+                StockQuantity = x.StockQuantity
+            }).ToListAsync();
+
+            return products;
+        }
+
+        public Task<ProductDto> GetProduct(int id)
+        {
+            var product = _repository.GetAll(x => x.Id == id).Select(x => new ProductDto
+            {
+                Id = x.Id,
+                CreatedDate = x.CreatedDate,
+                ModifiedDate = x.ModifiedDate,
+                ProductName = x.ProductName,
+                Price = x.Price,
+                StockQuantity = x.StockQuantity
+            }).FirstOrDefaultAsync();
+
+            return product;
         }
 
         public async Task<ServisMessage> PriceUpdate(int id, decimal changeBy)

@@ -10,5 +10,7 @@ namespace WebShopApp.Business.Operations.Product
         Task<ServisMessage> PriceUpdate(int id, decimal changeBy);
         Task<ServisMessage> DeleteProdut(int id);
         Task<ServisMessage> UpdateProduct(UpdateProductDto product);
+        Task<ProductDto> GetProduct(int id);
+        Task<List<ProductDto>> GetAllProducts();
     }
 }
