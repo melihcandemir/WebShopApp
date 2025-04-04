@@ -6,7 +6,7 @@ namespace WebShopApp.Data.Repositories
     {
         // jenerik bir yapı kullanılasının sebebi bütün entity class ları ile db arasında iletişim kurmak için.
         void Add(TEntity entity);
-        void Delete(TEntity entity);
+        void Delete(TEntity entity, bool isHardDelete = true);
         void Delete(int id);
         void Update(TEntity entity);
         TEntity GetById(int id);

@@ -64,5 +64,29 @@ namespace WebShopApp.WebApi.Controllers
             else
                 return Ok(result.Message);
         }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody] UpdateProductRequest data)
+        {
+            var updateProductDto = new UpdateProductDto
+            {
+                Id = id,
+                ProductName = data.ProductName,
+                Price = data.Price,
+                StockQuantity = data.StockQuantity
+            };
+
+            var result = await _productService.UpdateProduct(updateProductDto);
+
+            if (!result.IsSucceed)
+            {
+                return NotFound(result.Message);
+            }
+            else
+            {
+                return Ok(result.Message);
+            }
+        }
     }
 }

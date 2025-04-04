@@ -9,5 +9,6 @@ namespace WebShopApp.Business.Operations.Product
         Task<ServisMessage> AddProduct(AddProductDto product);
         Task<ServisMessage> PriceUpdate(int id, decimal changeBy);
         Task<ServisMessage> DeleteProdut(int id);
+        Task<ServisMessage> UpdateProduct(UpdateProductDto product);
     }
 }

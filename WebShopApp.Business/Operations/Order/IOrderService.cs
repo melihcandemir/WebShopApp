@@ -10,5 +10,6 @@ namespace WebShopApp.Business.Operations.Order
         Task<OrderDto> GetOrder(int id);
         Task<List<OrderDto>> GetAllOrders();
         Task<ServisMessage> DeleteOrder(int id);
+        Task<ServisMessage> UpdateOrder(UpdateOrderDto order);
     }
 }

@@ -162,5 +162,72 @@ namespace WebShopApp.Business.Operations.Order
 
             return order;
         }
+
+        public async Task<ServisMessage> UpdateOrder(UpdateOrderDto order)
+        {
+            var orderEntity = _orderRepository.GetById(order.Id);
+
+            if (orderEntity is null)
+            {
+                return new ServisMessage
+                {
+                    IsSucceed = false,
+                    Message = "Güncellenmek istenen sipariş bulunamadı."
+                };
+            }
+
+            await _unitOfWork.BeginTransaction();
+
+            orderEntity.CustomerId = order.CustomerId;
+
+            _orderRepository.Update(orderEntity);
+
+            try
+            {
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                await _unitOfWork.RollBackTransaction();
+                throw new Exception("Sipariş bilgileri güncellenirken bir hata ile karşılaşıldı.");
+            }
+
+            // sipariş ürünleri güncelleniyor
+            var orderProducts = _orderProductRepository.GetAll(x => x.OrderId == order.Id).ToList();
+
+            foreach (var orderProduct in orderProducts)
+            {
+                _orderProductRepository.Delete(orderProduct, false);
+            }
+
+            foreach (var productId in order.ProductIds)
+            {
+                var orderProduct = new OrderProductEntity
+                {
+                    OrderId = orderEntity.Id,
+                    ProductId = productId,
+                    Quentity = order.Quentity
+                };
+
+                _orderProductRepository.Add(orderProduct);
+            }
+
+            try
+            {
+                await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.CommitTransaction();
+            }
+            catch (Exception)
+            {
+                await _unitOfWork.RollBackTransaction();
+                throw new Exception("Sipariş bilgileri güncellenirken bir hata oluştu işlemler geriye alınıyor.");
+            }
+
+            return new ServisMessage
+            {
+                IsSucceed = true,
+                Message = "Başarıyla güncellendi."
+            };
+        }
     }
 }

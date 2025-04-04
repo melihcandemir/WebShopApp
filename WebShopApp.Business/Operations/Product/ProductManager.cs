@@ -123,5 +123,44 @@ namespace WebShopApp.Business.Operations.Product
                 Message = "Ürün güncellendi."
             };
         }
+
+        public async Task<ServisMessage> UpdateProduct(UpdateProductDto product)
+        {
+            var productEntity = _repository.GetById(product.Id);
+
+            if (productEntity is null)
+            {
+                return new ServisMessage
+                {
+                    IsSucceed = false,
+                    Message = "Güncellenmek istenen ürün bulunamadı."
+                };
+            }
+
+            await _unitOfWork.BeginTransaction();
+
+            productEntity.ProductName = product.ProductName;
+            productEntity.Price = product.Price;
+            productEntity.StockQuantity = product.StockQuantity;
+
+            _repository.Update(productEntity);
+
+            try
+            {
+                await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.CommitTransaction();
+            }
+            catch (Exception)
+            {
+                await _unitOfWork.RollBackTransaction();
+                throw new Exception("Ürün bilgileri güncellenirken bir hata oluştu işlemler geriye alınıyor.");
+            }
+
+            return new ServisMessage
+            {
+                IsSucceed = true,
+                Message = "Başarıyla güncellendi."
+            };
+        }
     }
 }
