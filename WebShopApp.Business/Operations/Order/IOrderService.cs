@@ -3,7 +3,7 @@ using WebShopApp.Business.Types;
 
 namespace WebShopApp.Business.Operations.Order
 {
-    // lifetime belirtmek gerekiyor
+    // lifetime must be specified
     public interface IOrderService
     {
         Task<ServisMessage> AddOrder(AddOrderDto order);

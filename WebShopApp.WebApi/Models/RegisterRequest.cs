@@ -4,16 +4,16 @@ namespace WebShopApp.WebApi.Models
 {
     public class RegisterRequest
     {
-        [Required] // girilmesi zorunlu
+        [Required] // required entry
         [EmailAddress]
         public string Email { get; set; }
-        [Required] // girilmesi zorunlu
+        [Required]
         public string Password { get; set; }
-        [Required] // girilmesi zorunlu
+        [Required]
         public string FirstName { get; set; }
-        [Required] // girilmesi zorunlu
+        [Required]
         public string LastName { get; set; }
-        [Required] // girilmesi zorunlu
+        [Required]
         public string PhoneNumber { get; set; }
     }
 }

@@ -2,11 +2,11 @@ namespace WebShopApp.Business.DataProtection
 {
     public interface IDataProtection
     {
-        // gönderilen metin şifrelenir
+        // the text sent is encrypted
         string Protect(string text);
 
 
-        // şifrelenmiş metin çözülür
+        // ciphertext is decrypted
         string Unprotect(string protectedText);
     }
 }

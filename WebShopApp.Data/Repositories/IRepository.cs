@@ -4,7 +4,7 @@ namespace WebShopApp.Data.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        // jenerik bir yapı kullanılasının sebebi bütün entity class ları ile db arasında iletişim kurmak için.
+        // The reason for using a generic structure is to communicate between all entity classes and the DB.
         void Add(TEntity entity);
         void Delete(TEntity entity, bool isHardDelete = true);
         void Delete(int id);

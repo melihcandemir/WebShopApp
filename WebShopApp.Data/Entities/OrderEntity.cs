@@ -20,7 +20,7 @@ namespace WebShopApp.Data.Entities
     {
         public override void Configure(EntityTypeBuilder<OrderEntity> builder)
         {
-            // burada BaseEntity de bulunan CreatedDate propertsinin ismini OrderDate ile değiştiriyoruz.
+            // Here we change the name of the CreatedDate property in BaseEntity to OrderDate.
             builder.Property(x => x.CreatedDate).HasColumnName("OrderDate");
 
             base.Configure(builder);

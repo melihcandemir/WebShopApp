@@ -3,10 +3,10 @@ using WebShopApp.Business.Types;
 
 namespace WebShopApp.Business.Operations.User
 {
-    // lifetime belirtmek gerekiyor
+    // lifetime must be specified
     public interface IUserService
     {
-        Task<ServisMessage> AddUser(AddUserDto user); // asyn çünkü unit of work kullanılacak.
+        Task<ServisMessage> AddUser(AddUserDto user);
 
         ServisMessage<UserInfoDto> LoginUser(LoginUserDto user);
     }

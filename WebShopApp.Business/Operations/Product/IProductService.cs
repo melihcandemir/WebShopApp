@@ -3,7 +3,7 @@ using WebShopApp.Business.Types;
 
 namespace WebShopApp.Business.Operations.Product
 {
-    // lifetime belirtmek gerekiyor
+    // lifetime must be specified
     public interface IProductService
     {
         Task<ServisMessage> AddProduct(AddProductDto product);

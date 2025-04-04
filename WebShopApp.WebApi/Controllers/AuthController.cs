@@ -17,7 +17,7 @@ namespace WebShopApp.WebApi.Controllers
             _userService = userService;
         }
 
-        // kayıt olma işlemi
+        // registration process
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequest data)
         {

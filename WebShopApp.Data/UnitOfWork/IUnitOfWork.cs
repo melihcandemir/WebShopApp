@@ -3,7 +3,7 @@ namespace WebShopApp.Data.UnitOfWork
     public interface IUnitOfWork : IDisposable
     {
         Task<int> SaveChangesAsync();
-        // kaç kayda etki ettiğini geriye döner, o yüzden int.
+        // returns how many records it affects, so int.
 
         Task BeginTransaction();
 

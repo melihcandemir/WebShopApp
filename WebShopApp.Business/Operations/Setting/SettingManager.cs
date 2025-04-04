@@ -4,7 +4,6 @@ using WebShopApp.Data.UnitOfWork;
 
 namespace WebShopApp.Business.Operations.Setting
 {
-    // lifetime belirtmek gerekiyor
     public class SettingManager : ISettingService
     {
         private readonly IUnitOfWork _unitOfWork;

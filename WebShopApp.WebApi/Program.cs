@@ -49,7 +49,7 @@ builder.Services.AddDbContext<WebShopAppDbContext>(options => options.UseSqlServ
 ));
 
 // Service Lifetimes
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); // Generic olduğu için typof kullanıldı
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); // Typeof was used because it was generic.
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped<IProductService, ProductManager>();
@@ -59,7 +59,7 @@ builder.Services.AddScoped<ISettingService, SettingManager>();
 
 builder.Services.AddScoped<IDataProtection, DataProtection>();
 var keysDirectory = new DirectoryInfo(Path.Combine(builder.Environment.ContentRootPath, "App_Data", "Keys"));
-builder.Services.AddDataProtection().SetApplicationName("WebShopApp").PersistKeysToFileSystem(keysDirectory); // sadece 1 bilgisayarda çalışır. birden fazla bilgisayarda çalışması için AddDataProtection().PersistKeysToSqlServer() kullanılmalıdır.
+builder.Services.AddDataProtection().SetApplicationName("WebShopApp").PersistKeysToFileSystem(keysDirectory); // It only works on 1 computer. To work on multiple computers, AddDataProtection().PersistKeysToSqlServer() must be used.
 
 //jwt
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -73,7 +73,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidAudience = builder.Configuration["Jwt:Audience"],
 
-            ValidateLifetime = true, // süsi dolan token kabul etme
+            ValidateLifetime = true, // accept expiring tokens
 
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]!))
         };
@@ -88,6 +88,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseGlobalExceptionHandler();
 app.UseMaintenanceMode();
 app.UseHttpsRedirection();

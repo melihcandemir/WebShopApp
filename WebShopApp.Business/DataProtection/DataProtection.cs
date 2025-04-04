@@ -4,7 +4,7 @@ namespace WebShopApp.Business.DataProtection
 {
     public class DataProtection : IDataProtection
     {
-        // kütüphane içerisinden çekiliyor
+        // taken from the library
         private readonly IDataProtector _protector;
 
         public DataProtection(IDataProtectionProvider protector)

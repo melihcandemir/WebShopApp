@@ -42,9 +42,9 @@ namespace WebShopApp.Business.Operations.User
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Password = _dataProtector.Protect(user.Password), // şifreleme yapılacak.
+                Password = _dataProtector.Protect(user.Password), // encryption will be performed.
                 PhoneNumber = user.PhoneNumber,
-                UserType = UserType.Customer // Varsayılan olarak Customer atanıyor
+                UserType = UserType.Customer // Assigned to Customer by default
 
             };
 
@@ -52,17 +52,17 @@ namespace WebShopApp.Business.Operations.User
 
             try
             {
-                // save başarılı ise
+                // if save is successful
                 await _unitOfWork.SaveChangesAsync();
             }
             catch (Exception)
             {
-                // hata alırsak
+                // If we get an error
                 throw new Exception("Kullanıcı eklenirken bir hata oluştu.");
             }
 
 
-            // save başarılı ise
+            // if save is successful
             return new ServisMessage
             {
                 Message = "Kullanıcı başarıyla eklendi.",

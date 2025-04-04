@@ -11,16 +11,16 @@ namespace WebShopApp.Data.Entities
         public bool IsDeleted { get; set; }
     }
 
-    // burda TEntity = BaseEntity ve ondan miras alan entityler
+    // where TEntity = BaseEntity and entities inheriting from it
     public abstract class BaseConfiguration<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : BaseEntity
     {
-        // Genel olarak verilen kurallar
+        // General rules given
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
-            // Bütün sorgulamalar ve linq işlemlerinde IsDeleted == false olanlar çağrılır.
+            // All queries and connectors call those where IsDeleted == false.
             builder.HasQueryFilter(x => x.IsDeleted == false);
 
-            // ModifiedDate == null olabilir. Doldurulmak zorunda değildir.
+            // ModifiedDate == null. It does not have to be filled in.
             builder.Property(x => x.ModifiedDate).IsRequired(false);
         }
     }

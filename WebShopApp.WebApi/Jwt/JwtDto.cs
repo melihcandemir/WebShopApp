@@ -10,7 +10,7 @@ namespace WebShopApp.WebApi.Jwt
         public string LastName { get; set; }
         public UserType UserType { get; set; }
 
-        // güvenlik
+        // security
         public string SecretKey { get; set; }
         public string Issuer { get; set; }
         public string Audience { get; set; }

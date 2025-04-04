@@ -11,7 +11,7 @@ namespace WebShopApp.WebApi.Jwt
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtInfo.SecretKey));
 
-            // credentials -> kimlik bilgileri
+            // credentials -> Identity Information
             var credentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]

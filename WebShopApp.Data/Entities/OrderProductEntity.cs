@@ -21,9 +21,9 @@ namespace WebShopApp.Data.Entities
     {
         public override void Configure(EntityTypeBuilder<OrderProductEntity> builder)
         {
-            // base den gelen Id kolanu kaldırıldı
+            // The ID column from the base has been removed.
             builder.Ignore(x => x.Id);
-            // Keyler atandı
+            // Keys were appointed
             builder.HasKey("OrderId", "ProductId");
 
             base.Configure(builder);

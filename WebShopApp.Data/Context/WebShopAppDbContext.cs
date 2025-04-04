@@ -11,7 +11,7 @@ namespace WebShopApp.Data.Context
         }
 
 
-        // yaptığımı kuralları db ye çağırıyoruz. Fluent Api
+        // What I did is call the rules to the db. Fluent Api
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());

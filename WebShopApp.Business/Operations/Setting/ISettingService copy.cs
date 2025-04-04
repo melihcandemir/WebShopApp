@@ -1,6 +1,6 @@
 namespace WebShopApp.Business.Operations.Setting
 {
-    // lifetime belirtmek gerekiyor
+    // lifetime must be specified
     public interface ISettingService
     {
         Task ToggleMaintenence();

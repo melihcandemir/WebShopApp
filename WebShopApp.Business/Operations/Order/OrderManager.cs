@@ -26,11 +26,11 @@ namespace WebShopApp.Business.Operations.Order
 
         public async Task<ServisMessage> AddOrder(AddOrderDto order)
         {
-            // save işlemi başlar sorun olursa buraya geri döner
+            // The save process will start, if there is a problem return here
             await _unitOfWork.BeginTransaction();
 
             decimal totalAmount = 0;
-            // sipariş fiyat toplamı
+            // order price total
             foreach (var productId in order.ProductIds)
             {
                 var hasProduct = _productRepository.GetById(productId);
@@ -192,7 +192,7 @@ namespace WebShopApp.Business.Operations.Order
                 throw new Exception("Sipariş bilgileri güncellenirken bir hata ile karşılaşıldı.");
             }
 
-            // sipariş ürünleri güncelleniyor
+            // Order products are being updated
             var orderProducts = _orderProductRepository.GetAll(x => x.OrderId == order.Id).ToList();
 
             foreach (var orderProduct in orderProducts)
