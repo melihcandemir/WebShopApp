@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebShopApp.Business.Operations.Product;
 using WebShopApp.Business.Operations.Product.Dtos;
+using WebShopApp.WebApi.Filters;
 using WebShopApp.WebApi.Models;
 
 namespace WebShopApp.WebApi.Controllers
@@ -90,6 +91,7 @@ namespace WebShopApp.WebApi.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
+        [TimeControlFilter]
         public async Task<IActionResult> UpdateProduct(int id, [FromBody] UpdateProductRequest data)
         {
             var updateProductDto = new UpdateProductDto
