@@ -19,6 +19,13 @@ namespace WebShopApp.Data.Context
             modelBuilder.ApplyConfiguration(new ProdurctConfiguration());
             modelBuilder.ApplyConfiguration(new OrderProductConfiguration());
 
+
+            modelBuilder.Entity<SettingEntity>().HasData(new SettingEntity
+            {
+                Id = 1,
+                MaintenenceMode = false
+            });
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -27,5 +34,6 @@ namespace WebShopApp.Data.Context
         public DbSet<OrderEntity> Orders => Set<OrderEntity>();
         public DbSet<ProductEntity> Products => Set<ProductEntity>();
         public DbSet<OrderProductEntity> OrderProducts => Set<OrderProductEntity>();
+        public DbSet<SettingEntity> Settings { get; set; }
     }
 }

@@ -7,10 +7,12 @@ using Microsoft.OpenApi.Models;
 using WebShopApp.Business.DataProtection;
 using WebShopApp.Business.Operations.Order;
 using WebShopApp.Business.Operations.Product;
+using WebShopApp.Business.Operations.Setting;
 using WebShopApp.Business.Operations.User;
 using WebShopApp.Data.Context;
 using WebShopApp.Data.Repositories;
 using WebShopApp.Data.UnitOfWork;
+using WebShopApp.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +54,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped<IProductService, ProductManager>();
 builder.Services.AddScoped<IOrderService, OrderManager>();
+builder.Services.AddScoped<ISettingService, SettingManager>();
 
 
 builder.Services.AddScoped<IDataProtection, DataProtection>();
@@ -86,6 +89,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMaintenanceMode();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

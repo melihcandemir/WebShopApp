@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebShopApp.Data.Context;
 
@@ -11,9 +12,11 @@ using WebShopApp.Data.Context;
 namespace WebShopApp.Data.Migrations
 {
     [DbContext(typeof(WebShopAppDbContext))]
-    partial class WebShopAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250404125417_UpdateOne")]
+    partial class UpdateOne
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
