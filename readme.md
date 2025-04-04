@@ -120,7 +120,7 @@ WebShopApp/
 
 3. **Run the Application**:
    ```bash
-   dotnet run --project WebShopApp.WebApi
+   dotnet watch --project WebShopApp.WebApi
    ```
 
 4. **Access the API**:
